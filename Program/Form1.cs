@@ -7,6 +7,7 @@ using System.Windows.Input;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Num = System.Numerics;
+using DatVis3D;
 
 
 namespace Program
@@ -22,7 +23,8 @@ namespace Program
         float lastY;
         bool firstMouse = true;
         bool isCapture = false;
-
+        // Данные
+        Dictionary<float, List<Vector3>> data;
         public Form1()
         {
             InitializeComponent();
@@ -157,6 +159,30 @@ namespace Program
 
                 glControl1.Invalidate();
             }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            Color mainColor = settingsControl.MainColor;
+            radioButton1.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
+            radioButton2.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            Color mainColor = settingsControl.MainColor;
+            radioButton2.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
+            radioButton1.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
+        }
+
+        private void EquaButton_Click(object sender, EventArgs e)
+        {
+            CalculationForm form = new CalculationForm();
+            form.Show();
+            (new System.Threading.Thread(delegate () {
+                Action<int> del = form.ChangeDel;
+                data = DatVis3D.Importer.GetDataFromEquation(EquaTextBox.Text, Convert.ToDouble(MinXTextBox.Text), Convert.ToDouble(MaxXTextBox.Text), Convert.ToDouble(MinYTextBox.Text), Convert.ToDouble(MaxYTextBox.Text), Convert.ToDouble(MinTTextBox.Text), Convert.ToDouble(MaxTTextBox.Text), del);
+            })).Start();
         }
     }
 }

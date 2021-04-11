@@ -35,16 +35,27 @@
             this.settingsTimer = new System.Windows.Forms.Timer(this.components);
             this.Burger = new System.Windows.Forms.Button();
             this.settingsPanel = new System.Windows.Forms.Panel();
-            this.importButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button3 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.MaxTTextBox = new System.Windows.Forms.TextBox();
+            this.MinTTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.MaxYTextBox = new System.Windows.Forms.TextBox();
+            this.EquaButton = new System.Windows.Forms.Button();
+            this.MinYTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.MaxXTextBox = new System.Windows.Forms.TextBox();
+            this.MinXTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.EquaTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.settingsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // glControl1
@@ -67,7 +78,7 @@
             // settingsTimer
             // 
             this.settingsTimer.Enabled = true;
-            this.settingsTimer.Interval = 1;
+            this.settingsTimer.Interval = 5;
             this.settingsTimer.Tick += new System.EventHandler(this.settingsTimer_Tick);
             // 
             // Burger
@@ -84,125 +95,238 @@
             // 
             // settingsPanel
             // 
+            this.settingsPanel.BackColor = System.Drawing.Color.Gainsboro;
+            this.settingsPanel.Controls.Add(this.panel1);
+            this.settingsPanel.Controls.Add(this.label1);
             this.settingsPanel.Controls.Add(this.radioButton2);
             this.settingsPanel.Controls.Add(this.radioButton1);
-            this.settingsPanel.Controls.Add(this.importButton);
             this.settingsPanel.Controls.Add(this.button1);
-            this.settingsPanel.Controls.Add(this.numericUpDown1);
             this.settingsPanel.Controls.Add(this.button3);
-            this.settingsPanel.Controls.Add(this.label4);
             this.settingsPanel.Controls.Add(this.button2);
             this.settingsPanel.Location = new System.Drawing.Point(0, -2);
             this.settingsPanel.Name = "settingsPanel";
             this.settingsPanel.Size = new System.Drawing.Size(199, 398);
             this.settingsPanel.TabIndex = 18;
             // 
-            // importButton
+            // panel1
             // 
-            this.importButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.importButton.Location = new System.Drawing.Point(23, 334);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(144, 47);
-            this.importButton.TabIndex = 13;
-            this.importButton.Text = "Импортировать данные";
-            this.importButton.UseVisualStyleBackColor = true;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.MaxTTextBox);
+            this.panel1.Controls.Add(this.MinTTextBox);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.MaxYTextBox);
+            this.panel1.Controls.Add(this.EquaButton);
+            this.panel1.Controls.Add(this.MinYTextBox);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.MaxXTextBox);
+            this.panel1.Controls.Add(this.MinXTextBox);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.EquaTextBox);
+            this.panel1.Location = new System.Drawing.Point(3, 88);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(193, 181);
+            this.panel1.TabIndex = 17;
             // 
-            // button1
+            // MaxTTextBox
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(106, 161);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Пуск";
-            this.button1.UseVisualStyleBackColor = true;
+            this.MaxTTextBox.Location = new System.Drawing.Point(126, 111);
+            this.MaxTTextBox.Name = "MaxTTextBox";
+            this.MaxTTextBox.Size = new System.Drawing.Size(58, 20);
+            this.MaxTTextBox.TabIndex = 27;
+            this.MaxTTextBox.Text = "100";
+            this.MaxTTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // numericUpDown1
+            // MinTTextBox
             // 
-            this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Location = new System.Drawing.Point(64, 94);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(75, 20);
-            this.numericUpDown1.TabIndex = 3;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.MinTTextBox.Location = new System.Drawing.Point(9, 110);
+            this.MinTTextBox.Name = "MinTTextBox";
+            this.MinTTextBox.Size = new System.Drawing.Size(58, 20);
+            this.MinTTextBox.TabIndex = 26;
+            this.MinTTextBox.Text = "0";
+            this.MinTTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button3
+            // label5
             // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(64, 200);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Обновить";
-            this.button3.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(75, 110);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 19);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "⩽ t ⩽";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // MaxYTextBox
+            // 
+            this.MaxYTextBox.Location = new System.Drawing.Point(126, 85);
+            this.MaxYTextBox.Name = "MaxYTextBox";
+            this.MaxYTextBox.Size = new System.Drawing.Size(58, 20);
+            this.MaxYTextBox.TabIndex = 24;
+            this.MaxYTextBox.Text = "100";
+            this.MaxYTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // EquaButton
+            // 
+            this.EquaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EquaButton.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.EquaButton.Location = new System.Drawing.Point(41, 143);
+            this.EquaButton.Name = "EquaButton";
+            this.EquaButton.Size = new System.Drawing.Size(109, 26);
+            this.EquaButton.TabIndex = 13;
+            this.EquaButton.Text = "Рассчёт";
+            this.EquaButton.UseVisualStyleBackColor = true;
+            this.EquaButton.Click += new System.EventHandler(this.EquaButton_Click);
+            // 
+            // MinYTextBox
+            // 
+            this.MinYTextBox.Location = new System.Drawing.Point(9, 84);
+            this.MinYTextBox.Name = "MinYTextBox";
+            this.MinYTextBox.Size = new System.Drawing.Size(58, 20);
+            this.MinYTextBox.TabIndex = 23;
+            this.MinYTextBox.Text = "-100";
+            this.MinYTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(29, 54);
+            this.label4.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(75, 84);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(138, 18);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Скорость таймера";
+            this.label4.Size = new System.Drawing.Size(42, 19);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "⩽ Y ⩽";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button2
+            // MaxXTextBox
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(15, 161);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Стоп";
-            this.button2.UseVisualStyleBackColor = false;
+            this.MaxXTextBox.Location = new System.Drawing.Point(126, 59);
+            this.MaxXTextBox.Name = "MaxXTextBox";
+            this.MaxXTextBox.Size = new System.Drawing.Size(58, 20);
+            this.MaxXTextBox.TabIndex = 21;
+            this.MaxXTextBox.Text = "100";
+            this.MaxXTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // MinXTextBox
+            // 
+            this.MinXTextBox.Location = new System.Drawing.Point(9, 58);
+            this.MinXTextBox.Name = "MinXTextBox";
+            this.MinXTextBox.Size = new System.Drawing.Size(58, 20);
+            this.MinXTextBox.TabIndex = 20;
+            this.MinXTextBox.Text = "-100";
+            this.MinXTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(75, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 19);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "⩽ X ⩽";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(61, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 17);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Уравнение";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // EquaTextBox
+            // 
+            this.EquaTextBox.Location = new System.Drawing.Point(9, 25);
+            this.EquaTextBox.Name = "EquaTextBox";
+            this.EquaTextBox.Size = new System.Drawing.Size(175, 20);
+            this.EquaTextBox.TabIndex = 0;
+            this.EquaTextBox.Text = "x * y + t * y";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(23, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 17);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Параметры импорта";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.radioButton2.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton2.Location = new System.Drawing.Point(110, 58);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(77, 23);
+            this.radioButton2.TabIndex = 15;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Таблица";
+            this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // radioButton1
             // 
             this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(15, 17);
+            this.radioButton1.BackColor = System.Drawing.Color.Gainsboro;
+            this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.radioButton1.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.radioButton1.Location = new System.Drawing.Point(16, 58);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(73, 23);
+            this.radioButton1.Size = new System.Drawing.Size(77, 24);
             this.radioButton1.TabIndex = 14;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Уравнение";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.UseVisualStyleBackColor = false;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // radioButton2
+            // button1
             // 
-            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(104, 17);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(60, 23);
-            this.radioButton2.TabIndex = 15;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Таблица";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(106, 316);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 27);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Пуск";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(62, 349);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 27);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "Обновить";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(20, 316);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 27);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Стоп";
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -220,7 +344,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.settingsPanel.ResumeLayout(false);
             this.settingsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -232,14 +357,25 @@
         private System.Windows.Forms.Timer settingsTimer;
         private System.Windows.Forms.Button Burger;
         private System.Windows.Forms.Panel settingsPanel;
-        private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.Button EquaButton;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox EquaTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox MaxTTextBox;
+        private System.Windows.Forms.TextBox MinTTextBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox MaxYTextBox;
+        private System.Windows.Forms.TextBox MinYTextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox MaxXTextBox;
+        private System.Windows.Forms.TextBox MinXTextBox;
     }
 }
 

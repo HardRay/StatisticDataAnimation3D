@@ -1,0 +1,13 @@
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\DatVis3D.dll
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\DatVis3D.pdb
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\OpenTK.dll
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\Sprache.Calc.dll
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\Sprache.dll
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\OpenTK.pdb
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\OpenTK.xml
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\OpenTK.dll.config
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\bin\Debug\Sprache.xml
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\obj\Debug\DatVis3D.csprojAssemblyReference.cache
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\obj\Debug\DatVis3D.csproj.CopyComplete
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\obj\Debug\DatVis3D.dll
+E:\Study\4 course\Sem 2\Курсач3D(мой)\StatisticDateAnimation3D\DatVis3D\obj\Debug\DatVis3D.pdb

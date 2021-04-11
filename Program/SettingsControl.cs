@@ -13,12 +13,13 @@ namespace Program
         private Panel settingsPanel;
         private Button burger;
         private Timer settingsTimer;
+        public Color MainColor;
 
         internal SettingsControl(Panel panel, Button button, Timer timer)
         {
             isSettingsFocus = false;
             //Search for the main color of the Windows theme
-            Color MainColor = Color.FromArgb((int)Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null));
+            MainColor = Color.FromArgb(56, 89, 135);
             settingsPanel = panel;
             burger = button;
             settingsTimer = timer;
@@ -28,11 +29,15 @@ namespace Program
             {
                 if (control is Label)
                     control.ForeColor = Color.FromArgb(Math.Abs(255 - MainColor.R), Math.Abs(255 - MainColor.G), Math.Abs(255 - MainColor.B));
-                if (control is Button)
+                if (control is Button || control is RadioButton)
                 {
                     control.ForeColor = MainColor;
                     control.BackColor = Color.FromArgb(Math.Abs(255 - MainColor.R), Math.Abs(255 - MainColor.G), Math.Abs(255 - MainColor.B));
                 }
+                if (control is Panel)
+                    foreach (Control ctr in control.Controls)
+                        if (ctr is Label)
+                            control.ForeColor = Color.FromArgb(Math.Abs(255 - MainColor.R), Math.Abs(255 - MainColor.G), Math.Abs(255 - MainColor.B));
             }
             //Set the initial position
             settingsPanel.SetBounds(0, 0, 0, settingsPanel.Height);
