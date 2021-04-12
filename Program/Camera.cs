@@ -21,8 +21,8 @@ namespace Program
         };
 
         // Параметры камеры по умолчанию
-        const float YAW = -90.0f;
-        const float PITCH = 0.0f;
+        const float YAW = -135.0f;
+        const float PITCH = -35.0f;
         const float SPEED = 2.5f;
         const float SENSITIVITY = 0.1f;
         const float ZOOM = 45.0f;
@@ -44,7 +44,7 @@ namespace Program
         // Конструктор, использующий векторы
         public Camera(Vector3 position, Vector3 up, float yaw = YAW, float pitch = PITCH)
         {
-            Front = new Vector3(0.0f, 0.0f, -1.0f);
+            Front = new Vector3(0.0f, 0.0f, 0.0f);
             MovementSpeed = SPEED;
             MouseSensitivity = SENSITIVITY;
             Zoom = ZOOM;
@@ -62,7 +62,7 @@ namespace Program
         // Конструктор, использующие скаляры
         public Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
         {
-            Front = new Vector3(0.0f, 0.0f, -1.0f);
+            Front = new Vector3(0.0f, 0.0f, 0.0f);
             MovementSpeed = SPEED;
             MouseSensitivity = SENSITIVITY;
             Zoom = ZOOM;
