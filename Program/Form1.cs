@@ -44,7 +44,8 @@ namespace Program
             GL.ClearColor(Color.FromArgb(150,150,150));
             camera = new Camera(new Vector3(70.0f, 70.0f, 70.0f));
             GL.Enable(EnableCap.DepthTest);
-            Matrix4 p = Matrix4.CreatePerspectiveFieldOfView((float)(camera.Zoom * Math.PI / 180), 1, 20, 1000);
+            float aspect = glControl1.AspectRatio;
+            Matrix4 p = Matrix4.CreatePerspectiveFieldOfView((float)(camera.Zoom * Math.PI / 180), aspect, 1, 1000);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref p);
             Matrix4 modelview = camera.GetViewMatrix();
