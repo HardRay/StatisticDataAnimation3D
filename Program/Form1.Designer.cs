@@ -35,7 +35,11 @@
             this.settingsTimer = new System.Windows.Forms.Timer(this.components);
             this.Burger = new System.Windows.Forms.Button();
             this.settingsPanel = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.HistRadioButton = new System.Windows.Forms.RadioButton();
+            this.PolyRadioButton = new System.Windows.Forms.RadioButton();
             this.currTrack = new System.Windows.Forms.Label();
+            this.pointRadioButton = new System.Windows.Forms.RadioButton();
             this.maxTrack = new System.Windows.Forms.Label();
             this.minTrack = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -59,10 +63,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.animationTimer = new System.Windows.Forms.Timer(this.components);
-            this.PolyRadioButton = new System.Windows.Forms.RadioButton();
-            this.pointRadioButton = new System.Windows.Forms.RadioButton();
-            this.HistRadioButton = new System.Windows.Forms.RadioButton();
-            this.label6 = new System.Windows.Forms.Label();
             this.settingsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -126,6 +126,50 @@
             this.settingsPanel.Size = new System.Drawing.Size(199, 513);
             this.settingsPanel.TabIndex = 18;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(42, 275);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(122, 17);
+            this.label6.TabIndex = 34;
+            this.label6.Text = "Тип диаграммы";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // HistRadioButton
+            // 
+            this.HistRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.HistRadioButton.AutoSize = true;
+            this.HistRadioButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.HistRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.HistRadioButton.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HistRadioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.HistRadioButton.Location = new System.Drawing.Point(95, 308);
+            this.HistRadioButton.Name = "HistRadioButton";
+            this.HistRadioButton.Size = new System.Drawing.Size(92, 24);
+            this.HistRadioButton.TabIndex = 33;
+            this.HistRadioButton.TabStop = true;
+            this.HistRadioButton.Text = "Гистограмма";
+            this.HistRadioButton.UseVisualStyleBackColor = false;
+            this.HistRadioButton.CheckedChanged += new System.EventHandler(this.HistRadioButton_CheckedChanged);
+            // 
+            // PolyRadioButton
+            // 
+            this.PolyRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.PolyRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.PolyRadioButton.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PolyRadioButton.Location = new System.Drawing.Point(44, 338);
+            this.PolyRadioButton.Name = "PolyRadioButton";
+            this.PolyRadioButton.Size = new System.Drawing.Size(118, 23);
+            this.PolyRadioButton.TabIndex = 32;
+            this.PolyRadioButton.TabStop = true;
+            this.PolyRadioButton.Text = "Полигональная";
+            this.PolyRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PolyRadioButton.UseVisualStyleBackColor = true;
+            this.PolyRadioButton.CheckedChanged += new System.EventHandler(this.PolyRadioButton_CheckedChanged);
+            // 
             // currTrack
             // 
             this.currTrack.AutoSize = true;
@@ -137,6 +181,23 @@
             this.currTrack.TabIndex = 30;
             this.currTrack.Text = "0";
             this.currTrack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pointRadioButton
+            // 
+            this.pointRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.pointRadioButton.AutoSize = true;
+            this.pointRadioButton.BackColor = System.Drawing.Color.Gainsboro;
+            this.pointRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.pointRadioButton.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pointRadioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pointRadioButton.Location = new System.Drawing.Point(12, 308);
+            this.pointRadioButton.Name = "pointRadioButton";
+            this.pointRadioButton.Size = new System.Drawing.Size(71, 24);
+            this.pointRadioButton.TabIndex = 31;
+            this.pointRadioButton.TabStop = true;
+            this.pointRadioButton.Text = "Точечная";
+            this.pointRadioButton.UseVisualStyleBackColor = false;
+            this.pointRadioButton.CheckedChanged += new System.EventHandler(this.pointRadioButton_CheckedChanged);
             // 
             // maxTrack
             // 
@@ -169,6 +230,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(177, 45);
             this.trackBar1.TabIndex = 18;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // panel1
             // 
@@ -399,67 +461,6 @@
             // 
             this.animationTimer.Interval = 20;
             this.animationTimer.Tick += new System.EventHandler(this.animationTimer_Tick);
-            // 
-            // PolyRadioButton
-            // 
-            this.PolyRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.PolyRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.PolyRadioButton.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PolyRadioButton.Location = new System.Drawing.Point(44, 338);
-            this.PolyRadioButton.Name = "PolyRadioButton";
-            this.PolyRadioButton.Size = new System.Drawing.Size(118, 23);
-            this.PolyRadioButton.TabIndex = 32;
-            this.PolyRadioButton.TabStop = true;
-            this.PolyRadioButton.Text = "Полигональная";
-            this.PolyRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.PolyRadioButton.UseVisualStyleBackColor = true;
-            this.PolyRadioButton.CheckedChanged += new System.EventHandler(this.PolyRadioButton_CheckedChanged);
-            // 
-            // pointRadioButton
-            // 
-            this.pointRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.pointRadioButton.AutoSize = true;
-            this.pointRadioButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.pointRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.pointRadioButton.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pointRadioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pointRadioButton.Location = new System.Drawing.Point(12, 308);
-            this.pointRadioButton.Name = "pointRadioButton";
-            this.pointRadioButton.Size = new System.Drawing.Size(71, 24);
-            this.pointRadioButton.TabIndex = 31;
-            this.pointRadioButton.TabStop = true;
-            this.pointRadioButton.Text = "Точечная";
-            this.pointRadioButton.UseVisualStyleBackColor = false;
-            this.pointRadioButton.CheckedChanged += new System.EventHandler(this.pointRadioButton_CheckedChanged);
-            // 
-            // HistRadioButton
-            // 
-            this.HistRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.HistRadioButton.AutoSize = true;
-            this.HistRadioButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.HistRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.HistRadioButton.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HistRadioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.HistRadioButton.Location = new System.Drawing.Point(95, 308);
-            this.HistRadioButton.Name = "HistRadioButton";
-            this.HistRadioButton.Size = new System.Drawing.Size(92, 24);
-            this.HistRadioButton.TabIndex = 33;
-            this.HistRadioButton.TabStop = true;
-            this.HistRadioButton.Text = "Гистограмма";
-            this.HistRadioButton.UseVisualStyleBackColor = false;
-            this.HistRadioButton.CheckedChanged += new System.EventHandler(this.HistRadioButton_CheckedChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(42, 275);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(122, 17);
-            this.label6.TabIndex = 34;
-            this.label6.Text = "Тип диаграммы";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 

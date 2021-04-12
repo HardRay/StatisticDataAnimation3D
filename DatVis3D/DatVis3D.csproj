@@ -59,6 +59,7 @@
     <Compile Include="dataUnit.cs" />
     <Compile Include="DotPlot.cs" />
     <Compile Include="Importer.cs" />
+    <Compile Include="PolygonPlot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

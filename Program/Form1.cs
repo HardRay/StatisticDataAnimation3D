@@ -80,24 +80,39 @@ namespace Program
             //Ox
             GL.Color3(Color.Blue);            
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex3(-1000, 0, 0);
+            GL.Vertex3(0, 0, 0);
             GL.Vertex3(1000, 0, 0);
+            GL.End();
+            GL.Color3(Color.FromArgb(150, 150, 190));
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex3(-1000, 0, 0);
+            GL.Vertex3(0, 0, 0);
             GL.End();
             //Oy
             GL.Color3(Color.Red);
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex3(0, -1000, 0);
+            GL.Vertex3(0, 0, 0);
             GL.Vertex3(0, 1000, 0);
+            GL.End();
+            GL.Color3(Color.FromArgb(180, 150, 150));
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex3(0,-1000, 0);
+            GL.Vertex3(0, 0, 0);
             GL.End();
             //Oz
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex3(0, 0, -1000);
+            GL.Vertex3(0, 0, 0);
             GL.Vertex3(0, 0, 1000);
+            GL.End();
+            GL.Color3(Color.FromArgb(150, 180, 150));
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex3(0, 0, -1000);
+            GL.Vertex3(0, 0, 0);
             GL.End();
             GL.Enable(EnableCap.Lighting);
             if (loadFlag)
-                plot.Draw(t);
+                plot.Draw((float)Math.Round(t/stept)*stept);
             glControl1.SwapBuffers();
         }
 
@@ -176,53 +191,6 @@ namespace Program
             })).Start();
         }
 
-        #region animationTimerManage
-        private void button1_Click(object sender, EventArgs e)
-        {
-            loadFlag = true;
-            animationTimer.Start();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            animationTimer.Stop();
-        }
-
-        private void animationTimer_Tick(object sender, EventArgs e)
-        {
-            if (t < maxt)
-            {
-                glControl1.Invalidate();
-                t += stept;
-                trackBar1.Value = Convert.ToInt32(t);
-                currTrack.Text = Convert.ToString(t);
-            }
-            else
-            {
-                animationTimer.Stop();
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            animationTimer.Stop();
-            t = mint;
-            currTrack.Text = t.ToString();
-        }
-        private void MinTTextBox_TextChanged(object sender, EventArgs e)
-        {
-            int res;
-            if (int.TryParse(MinTTextBox.Text, out res))
-            {
-                trackBar1.Minimum = res;
-                trackBar1.Value = res;
-                minTrack.Text = MinTTextBox.Text;
-                currTrack.Text = MinTTextBox.Text;
-                mint = res;
-                t = res;
-            }
-        }
-
         #region MouseProcessing
         private void glControl1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -251,6 +219,61 @@ namespace Program
         }
         #endregion
 
+        #region animationTimerManage
+        private void button1_Click(object sender, EventArgs e)
+        {
+            animationTimer.Start();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            animationTimer.Stop();
+        }
+
+        private void animationTimer_Tick(object sender, EventArgs e)
+        {
+            if (t < maxt)
+            {
+                glControl1.Invalidate();
+                t += stept;
+                trackBar1.Value = Convert.ToInt32(t);
+                currTrack.Text = Convert.ToString(t);
+            }
+            else
+            {
+                animationTimer.Stop();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            animationTimer.Stop();
+            t = mint;
+            currTrack.Text = t.ToString();
+            trackBar1.Value = Convert.ToInt32(t);
+            glControl1.Invalidate();
+        }
+        private void MinTTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int res;
+            if (int.TryParse(MinTTextBox.Text, out res))
+            {
+                trackBar1.Minimum = res;
+                trackBar1.Value = res;
+                minTrack.Text = MinTTextBox.Text;
+                currTrack.Text = MinTTextBox.Text;
+                mint = res;
+                t = res;
+            }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            t = trackBar1.Value;
+            currTrack.Text = t.ToString();
+            glControl1.Invalidate();
+        }
+
         private void MaxTTextBox_TextChanged(object sender, EventArgs e)
         {
             int res;
@@ -273,7 +296,11 @@ namespace Program
                 HistRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
                 PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
                 if (data != null)
+                {
                     plot = new DatVis3D.DotPlot(data);
+                    loadFlag = true;
+                    glControl1.Invalidate();
+                }
                 else
                 {
                     MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -288,6 +315,17 @@ namespace Program
             HistRadioButton.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
             pointRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
+            if (data != null)
+            {
+                //plot = new DatVis3D.DotPlot(data);
+                loadFlag = true;
+                glControl1.Invalidate();
+            }
+            else
+            {
+                MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pointRadioButton.Checked = false;
+            }
         }
         private void PolyRadioButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -295,6 +333,17 @@ namespace Program
             PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
             HistRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             pointRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
+            if (data != null)
+            {
+                plot = new DatVis3D.PolygonPlot(data);
+                loadFlag = true;
+                glControl1.Invalidate();
+            }
+            else
+            {
+                MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pointRadioButton.Checked = false;
+            }
         }
         #endregion
     }
