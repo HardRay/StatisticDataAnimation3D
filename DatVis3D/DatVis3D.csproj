@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarPlot.cs" />
     <Compile Include="BasicDiagram.cs" />
     <Compile Include="dataUnit.cs" />
     <Compile Include="DotPlot.cs" />

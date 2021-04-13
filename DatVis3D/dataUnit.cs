@@ -11,8 +11,8 @@ namespace DatVis3D
     public class dataUnit
     {
         public List<Vector3> vectors { get; }
-        public float maxZ { get; }
-        public float minZ { get; }
+        public float maxZ { get; protected internal set;  }
+        public float minZ { get; protected internal set;  }
 
         public dataUnit(List<Vector3> data, float min, float max)
         {
