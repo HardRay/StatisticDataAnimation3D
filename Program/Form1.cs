@@ -24,8 +24,10 @@ namespace Program
         // Диаграмма
         DatVis3D.BasicDiagram plot;
         bool loadFlag = false;
-        float mint = 0,maxt = 100,t = 0;
+        int mint = 0, maxt = 100;
+        int t = 0;
         float stept = 1.0f, stepx = 1.0f, stepy = 1.0f;
+        float[] valuesT;
 
         public Form1()
         {
@@ -112,7 +114,7 @@ namespace Program
             GL.End();
             GL.Enable(EnableCap.Lighting);
             if (loadFlag)
-                plot.Draw((float)Math.Round(t/stept)*stept);
+                plot.Draw(valuesT[t]);
             glControl1.SwapBuffers();
         }
 
@@ -129,14 +131,6 @@ namespace Program
                 case (Keys.Escape): Cursor.Show(); isCapture = false; Cursor.Clip = Screen.PrimaryScreen.Bounds; break;
             }
             glControl1.Invalidate();
-        }
-
-        // Чтение из файла
-        private void ReadFromFile()
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-            
         }
 
         #region settingsPanel
@@ -162,16 +156,56 @@ namespace Program
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+            if (!radioButton2.Checked) return;
             Color mainColor = settingsControl.MainColor;
             radioButton1.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             radioButton2.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
+            panel1.Visible = false;
+            panel2.Visible = true;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            if (!radioButton1.Checked) return;
             Color mainColor = settingsControl.MainColor;
             radioButton2.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             radioButton1.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
+            panel1.Visible = true;
+            panel2.Visible = false;
+        }
+
+        // Загрузка заголовков из файла
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            var headers = DatVis3D.Importer.LoadHeaders(openFileDialog1.FileName);
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            comboBox3.Items.Clear();
+            comboBox4.Items.Clear();
+            comboBox1.Items.AddRange(headers);
+            comboBox2.Items.AddRange(headers);
+            comboBox3.Items.AddRange(headers);
+            comboBox4.Items.AddRange(headers);
+            comboBox1.SelectedIndex = 0;  comboBox2.SelectedIndex = 1;
+            comboBox3.SelectedIndex = 2;  comboBox4.SelectedIndex = 3;
+        }
+
+        // Загрузка данных из файла
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var pair = new List<Tuple<string, DatVis3D.Importer.Axis>>();
+            pair.Add(new Tuple<string, DatVis3D.Importer.Axis>(comboBox1.SelectedItem.ToString(), DatVis3D.Importer.Axis.X));
+            pair.Add(new Tuple<string, DatVis3D.Importer.Axis>(comboBox2.SelectedItem.ToString(), DatVis3D.Importer.Axis.Y));
+            pair.Add(new Tuple<string, DatVis3D.Importer.Axis>(comboBox3.SelectedItem.ToString(), DatVis3D.Importer.Axis.Z));
+            pair.Add(new Tuple<string, DatVis3D.Importer.Axis>(comboBox4.SelectedItem.ToString(), DatVis3D.Importer.Axis.T));
+            CalculationForm form = new CalculationForm();
+            form.Show();
+            (new System.Threading.Thread(delegate () {
+                Action<int> del = form.ChangeDel;
+                data = DatVis3D.Importer.GetDataFromTable(openFileDialog1.FileName, pair, del);
+            })).Start();
         }
 
         private void EquaButton_Click(object sender, EventArgs e)
@@ -222,6 +256,14 @@ namespace Program
         #region animationTimerManage
         private void button1_Click(object sender, EventArgs e)
         {
+            loadFlag = true;
+            valuesT = new float[data.Keys.Count];
+            data.Keys.CopyTo(valuesT, 0);
+            Array.Sort(valuesT);
+            maxt = valuesT.Length - 1;
+            mint = 0;
+            trackBar1.Maximum = Convert.ToInt32(valuesT[maxt]);
+            trackBar1.Minimum = Convert.ToInt32(valuesT[mint]);
             animationTimer.Start();
         }
 
@@ -235,9 +277,9 @@ namespace Program
             if (t < maxt)
             {
                 glControl1.Invalidate();
-                t += stept;
-                trackBar1.Value = Convert.ToInt32(t);
-                currTrack.Text = Convert.ToString(t);
+                t++;
+                trackBar1.Value = Convert.ToInt32(valuesT[t]);
+                currTrack.Text = Convert.ToString(valuesT[t]);
             }
             else
             {
@@ -248,7 +290,7 @@ namespace Program
         private void button3_Click(object sender, EventArgs e)
         {
             animationTimer.Stop();
-            t = mint;
+            t = 0;
             currTrack.Text = t.ToString();
             trackBar1.Value = Convert.ToInt32(t);
             glControl1.Invalidate();
@@ -273,6 +315,7 @@ namespace Program
             currTrack.Text = t.ToString();
             glControl1.Invalidate();
         }
+
 
         private void MaxTTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -316,11 +359,7 @@ namespace Program
             pointRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             if (data != null)
-            {
-                //plot = new DatVis3D.DotPlot(data);
-                loadFlag = true;
-                glControl1.Invalidate();
-            }
+                plot = new DatVis3D.BarPlot(data);
             else
             {
                 MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
