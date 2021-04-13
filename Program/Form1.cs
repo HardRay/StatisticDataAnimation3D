@@ -330,6 +330,13 @@ namespace Program
             HistRadioButton.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
             pointRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
+            if (data != null)
+                plot = new DatVis3D.BarPlot(data);
+            else
+            {
+                MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pointRadioButton.Checked = false;
+            }
         }
         private void PolyRadioButton_CheckedChanged(object sender, EventArgs e)
         {

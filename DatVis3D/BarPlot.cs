@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace DatVis3D
 {
-    class BarPlot : BasicDiagram
+    public class BarPlot : BasicDiagram
     {
         public BarPlot(Dictionary<float, dataUnit> Data) : base(Data) { }
 
-        public float BarThicknessX { get; set; } = 10f;
-        public float BarThicknessY { get; set; } = 10f;
+        public float ThicknessX { get; set; } = 10f;
+        public float ThicknessY { get; set; } = 10f;
 
         public override void Draw(float t)
         {
@@ -22,9 +22,16 @@ namespace DatVis3D
             foreach (Vector3 vec in data[t].vectors)
             {
                 GL.Begin(PrimitiveType.QuadStrip);
-                GL.Vertex3(vec );
+                GL.Vertex3((vec.X - 0.5f) * ThicknessX, (vec.Y - 0.5f) * ThicknessY, 0);
+                GL.Vertex3((vec.X - 0.5f) * ThicknessX, (vec.Y - 0.5f) * ThicknessY, vec.Z);
+                GL.Vertex3((vec.X + 0.5f) * ThicknessX, (vec.Y - 0.5f) * ThicknessY, 0);
+                GL.Vertex3((vec.X + 0.5f) * ThicknessX, (vec.Y - 0.5f) * ThicknessY, vec.Z);
+                GL.Vertex3((vec.X + 0.5f) * ThicknessX, (vec.Y + 0.5f) * ThicknessY, 0);
+                GL.Vertex3((vec.X + 0.5f) * ThicknessX, (vec.Y + 0.5f) * ThicknessY, vec.Z);
+                GL.Vertex3((vec.X - 0.5f) * ThicknessX, (vec.Y + 0.5f) * ThicknessY, 0);
+                GL.Vertex3((vec.X - 0.5f) * ThicknessX, (vec.Y + 0.5f) * ThicknessY, vec.Z);
+                GL.Vertex3((vec.X - 0.5f) * ThicknessX, (vec.Y - 0.5f) * ThicknessY, 0);
                 GL.End();
-
             }
             GL.Enable(EnableCap.Lighting);
         }
