@@ -56,8 +56,8 @@ namespace Program
         }
 
         //Перегрузки конструктора для значений по умолчанию
-        public Camera() : this(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f)) { }
-        public Camera(Vector3 position) : this(position, new Vector3(0.0f, 1.0f, 0.0f)) { }
+        public Camera() : this(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f)) { }
+        public Camera(Vector3 position) : this(position, new Vector3(0.0f, 0.0f, 1.0f)) { }
 
         // Конструктор, использующие скаляры
         public Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
@@ -131,9 +131,9 @@ namespace Program
         {
             // Вычисляем новый вектор-прямо
             Vector3 front;
-            front.X = (float)(Math.Cos(Yaw * Math.PI / 180) * Math.Cos(Pitch * Math.PI / 180));
-            front.Y = (float)Math.Sin(Pitch * Math.PI / 180);
-            front.Z = (float)(Math.Sin(Yaw * Math.PI / 180) * Math.Cos(Pitch * Math.PI / 180));
+            front.Y = (float)(Math.Cos(Yaw * Math.PI / 180) * Math.Cos(Pitch * Math.PI / 180));
+            front.Z = (float)Math.Sin(Pitch * Math.PI / 180);
+            front.X = (float)(Math.Sin(Yaw * Math.PI / 180) * Math.Cos(Pitch * Math.PI / 180));
             Front = front.Normalized();
             // Также пересчитываем вектор-вправо и вектор-вверх
             Right = NumCross(Front, WorldUp).Normalized();  // Нормализуем векторы, потому что их длина становится стремится к 0 тем больше, чем больше вы смотрите вверх или вниз, что приводит к более медленному движению.

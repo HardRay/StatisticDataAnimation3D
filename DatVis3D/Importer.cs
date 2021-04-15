@@ -59,25 +59,7 @@ namespace DatVis3D
             catch { return data; }
         }
 
-
-
-        public static Dictionary<float, dataUnit> GetDataFromTable(string filepath, List<Tuple<string, Axis>> headers, Action<int> del)
-        {
-            if (Path.GetExtension(filepath) == ".txt")
-                return LoadFromTxt(filepath, headers, del);
-            else
-                return LoadFromExcel(filepath, headers, del);
-        }
-
         public static string[] LoadHeaders(string filepath)
-        {
-            if (Path.GetExtension(filepath) == ".txt")
-                return LoadHeadersFromTxt(filepath);
-            else
-                return LoadHeadersFromExcel(filepath);
-        }
-
-        private static string[] LoadHeadersFromTxt(string filepath)
         {
             using (var file = new StreamReader(filepath))
             {
@@ -92,21 +74,15 @@ namespace DatVis3D
             }
         }
 
-        private static string[] LoadHeadersFromExcel(string filepath)
-        {
-            return null;
-        }
-
-
-        private static Dictionary<float, dataUnit> LoadFromTxt(string filepath, List<Tuple<string, Axis>> headers, Action<int> del)
+        public static Dictionary<float, dataUnit> GetDataFromTable(string filepath, List<Tuple<string, Axis>> headers, Action<int> del, out List<string> histX, out List<string> histY)
         {
             del(10);
             int numT = headers.FindIndex(h => h.Item2 == Axis.T);
             int numX = headers.FindIndex(h => h.Item2 == Axis.X);
             int numY = headers.FindIndex(h => h.Item2 == Axis.Y);
             int numZ = headers.FindIndex(h => h.Item2 == Axis.Z);
-            var histX = new List<string>();
-            var histY = new List<string>();
+            histX = new List<string>();
+            histY = new List<string>();
             var rezult = new Dictionary<float, dataUnit>();
 
             using (var file = new StreamReader(filepath))
@@ -168,11 +144,6 @@ namespace DatVis3D
             }
             del(100);
             return rezult;
-        }
-
-        private static Dictionary<float, dataUnit> LoadFromExcel(string filepath, List<Tuple<string, Axis>> headers, Action<int> del)
-        {
-            return null;
         }
     }
 }

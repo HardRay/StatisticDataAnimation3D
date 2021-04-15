@@ -28,11 +28,13 @@ namespace Program
         int t = 0;
         float stept = 1.0f, stepx = 1.0f, stepy = 1.0f;
         float[] valuesT;
+        List<string> histX;
 
         public Form1()
         {
             InitializeComponent();
             glControl1.MouseWheel += new MouseEventHandler(glControl1_MouseWheel);
+            legendPanel.BackColor = Color.FromArgb(200, 150, 150, 150);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -114,7 +116,9 @@ namespace Program
             GL.End();
             GL.Enable(EnableCap.Lighting);
             if (loadFlag)
+            {
                 plot.Draw(valuesT[t]);
+            }
             glControl1.SwapBuffers();
         }
 
@@ -129,6 +133,7 @@ namespace Program
                 case (Keys.A): camera.ProcessKeyboard(Camera.Camera_Movement.LEFT); break;
                 case (Keys.D): camera.ProcessKeyboard(Camera.Camera_Movement.RIGHT); break;
                 case (Keys.Escape): Cursor.Show(); isCapture = false; Cursor.Clip = Screen.PrimaryScreen.Bounds; break;
+                case (Keys.L): legendPanel.Visible = !legendPanel.Visible; break;
             }
             glControl1.Invalidate();
         }
@@ -195,6 +200,11 @@ namespace Program
         // Загрузка данных из файла
         private void button5_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem is null || comboBox2.SelectedItem is null || comboBox1.SelectedItem is null || comboBox2.SelectedItem is null)
+            {
+                MessageBox.Show("Не указано сопоставление элементов", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var pair = new List<Tuple<string, DatVis3D.Importer.Axis>>();
             pair.Add(new Tuple<string, DatVis3D.Importer.Axis>(comboBox1.SelectedItem.ToString(), DatVis3D.Importer.Axis.X));
             pair.Add(new Tuple<string, DatVis3D.Importer.Axis>(comboBox2.SelectedItem.ToString(), DatVis3D.Importer.Axis.Y));
@@ -204,7 +214,7 @@ namespace Program
             form.Show();
             (new System.Threading.Thread(delegate () {
                 Action<int> del = form.ChangeDel;
-                data = DatVis3D.Importer.GetDataFromTable(openFileDialog1.FileName, pair, del);
+                data = DatVis3D.Importer.GetDataFromTable(openFileDialog1.FileName, pair, del, out histX, out var tmp);
             })).Start();
         }
 
@@ -223,6 +233,17 @@ namespace Program
                 Action<int> del = form.ChangeDel;
                 data = DatVis3D.Importer.GetDataFromEquation(EquaTextBox.Text, minX, maxX, minY, maxY, mint, maxt, del, stepx, stepy,stept);
             })).Start();
+        }
+
+        private void CalculateArrayT()
+        {
+            valuesT = new float[data.Keys.Count];
+            data.Keys.CopyTo(valuesT, 0);
+            Array.Sort(valuesT);
+            maxt = valuesT.Length - 1;
+            mint = 0;
+            trackBar1.Maximum = Convert.ToInt32(valuesT[maxt]);
+            trackBar1.Minimum = Convert.ToInt32(valuesT[mint]);
         }
 
         #region MouseProcessing
@@ -256,14 +277,7 @@ namespace Program
         #region animationTimerManage
         private void button1_Click(object sender, EventArgs e)
         {
-            loadFlag = true;
-            valuesT = new float[data.Keys.Count];
-            data.Keys.CopyTo(valuesT, 0);
-            Array.Sort(valuesT);
-            maxt = valuesT.Length - 1;
-            mint = 0;
-            trackBar1.Maximum = Convert.ToInt32(valuesT[maxt]);
-            trackBar1.Minimum = Convert.ToInt32(valuesT[mint]);
+            // loadFlag = true;
             animationTimer.Start();
         }
 
@@ -292,7 +306,7 @@ namespace Program
             animationTimer.Stop();
             t = 0;
             currTrack.Text = t.ToString();
-            trackBar1.Value = Convert.ToInt32(t);
+            trackBar1.Value = Convert.ToInt32(valuesT[t]);
             glControl1.Invalidate();
         }
         private void MinTTextBox_TextChanged(object sender, EventArgs e)
@@ -327,6 +341,12 @@ namespace Program
                 maxt = res;
             }
         }
+
+        private void legendPanel_Paint(object sender, PaintEventArgs e)
+        {
+            if (histX is null) return;
+            ((DatVis3D.BarPlot)plot).DrawLegend(e.Graphics, legendPanel.Width, legendPanel.Height, histX);
+        }
         #endregion
 
         #region TypeOfDiagramRadioButtons
@@ -342,6 +362,7 @@ namespace Program
                 {
                     plot = new DatVis3D.DotPlot(data);
                     loadFlag = true;
+                    CalculateArrayT();
                     glControl1.Invalidate();
                 }
                 else
@@ -359,7 +380,22 @@ namespace Program
             pointRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
             if (data != null)
+            {
+                // animationTimer.Interval = 500;
                 plot = new DatVis3D.BarPlot(data);
+                loadFlag = true;
+                CalculateArrayT();
+                if (histX != null)
+                {
+                    valuesT = ((DatVis3D.BarPlot)plot).GenerateIntermediateData();
+                    maxt = valuesT.Length - 1;
+                    trackBar1.Maximum = Convert.ToInt32(valuesT[maxt]);
+                    trackBar1.Minimum = Convert.ToInt32(valuesT[mint]);
+                    legendPanel.Visible = true;
+                    legendPanel.Refresh();
+                }
+                glControl1.Invalidate();
+            }
             else
             {
                 MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -376,6 +412,7 @@ namespace Program
             {
                 plot = new DatVis3D.PolygonPlot(data);
                 loadFlag = true;
+                CalculateArrayT();
                 glControl1.Invalidate();
             }
             else
