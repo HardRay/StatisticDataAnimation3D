@@ -15,7 +15,7 @@ namespace DatVis3D
 
         public BasicDiagram(Dictionary<float, dataUnit> Data)
         {
-            data = Data;
+            data = new Dictionary<float, dataUnit>(Data);
         }
 
         //Метод отрисовки

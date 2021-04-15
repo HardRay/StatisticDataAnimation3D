@@ -33,7 +33,6 @@ namespace DatVis3D
 
         public override void Draw(float t)
         {
-            Random rnd = new Random();
             foreach (Vector3 vec in data[t].vectors)
             {
                 // Рассчет точек

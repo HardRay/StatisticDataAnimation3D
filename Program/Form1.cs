@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Linq;
 
 namespace Program
 {
@@ -71,8 +71,8 @@ namespace Program
                 return;
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            GL.Enable(EnableCap.DepthTest);
-            Matrix4 p = Matrix4.CreatePerspectiveFieldOfView((float)(camera.Zoom * Math.PI / 180), 1, 20, 1000);
+            float aspect = glControl1.AspectRatio;
+            Matrix4 p = Matrix4.CreatePerspectiveFieldOfView((float)(camera.Zoom * Math.PI / 180), aspect, 20, 1000);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref p);
             Matrix4 modelview = camera.GetViewMatrix();
@@ -220,6 +220,7 @@ namespace Program
 
         private void EquaButton_Click(object sender, EventArgs e)
         {
+            if (EquaTextBox.Text == "") return;
             double minX = Convert.ToDouble(MinXTextBox.Text);
             double maxX = Convert.ToDouble(MaxXTextBox.Text);
             stepx = (float)(maxX - minX) / 100;
@@ -227,6 +228,7 @@ namespace Program
             double maxY = Convert.ToDouble(MaxYTextBox.Text);
             stepy = (float)(maxY - minY) / 100;
             stept = (float)(maxt - mint) / 100;
+            histX = null;
             CalculationForm form = new CalculationForm();
             form.Show();
             (new System.Threading.Thread(delegate () {
@@ -242,6 +244,9 @@ namespace Program
             Array.Sort(valuesT);
             maxt = valuesT.Length - 1;
             mint = 0;
+            t = mint;
+            maxTrack.Text = Convert.ToInt32(valuesT[maxt]).ToString();
+            minTrack.Text = Convert.ToInt32(valuesT[mint]).ToString();
             trackBar1.Maximum = Convert.ToInt32(valuesT[maxt]);
             trackBar1.Minimum = Convert.ToInt32(valuesT[mint]);
         }
@@ -277,8 +282,10 @@ namespace Program
         #region animationTimerManage
         private void button1_Click(object sender, EventArgs e)
         {
-            // loadFlag = true;
-            animationTimer.Start();
+            if (loadFlag)
+                animationTimer.Start();
+            else
+                MessageBox.Show("Данные не загружены", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -292,8 +299,11 @@ namespace Program
             {
                 glControl1.Invalidate();
                 t++;
-                trackBar1.Value = Convert.ToInt32(valuesT[t]);
-                currTrack.Text = Convert.ToString(valuesT[t]);
+                if (data.ContainsKey(valuesT[t]))
+                {
+                    currTrack.Text = Convert.ToString(valuesT[t]);
+                    trackBar1.Value = Convert.ToInt32(valuesT[t]);
+                }
             }
             else
             {
@@ -325,8 +335,10 @@ namespace Program
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            t = trackBar1.Value;
-            currTrack.Text = t.ToString();
+            if (valuesT == null) return;
+            t = 0;
+            while (valuesT[t] < trackBar1.Value && t < valuesT.Length) t++;
+            currTrack.Text = trackBar1.Value.ToString();
             glControl1.Invalidate();
         }
 
@@ -354,6 +366,7 @@ namespace Program
         {
             if (pointRadioButton.Checked == true)
             {
+                legendPanel.Visible = false;
                 Color mainColor = settingsControl.MainColor;
                 pointRadioButton.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
                 HistRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
@@ -404,6 +417,7 @@ namespace Program
         }
         private void PolyRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            legendPanel.Visible = false;
             Color mainColor = settingsControl.MainColor;
             PolyRadioButton.BackColor = Color.FromArgb(255 - mainColor.R + 20, 255 - mainColor.G + 20, 255 - mainColor.B + 20);
             HistRadioButton.BackColor = Color.FromArgb(255 - mainColor.R, 255 - mainColor.G, 255 - mainColor.B);
