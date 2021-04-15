@@ -46,7 +46,7 @@ namespace Program
         {
             loaded = true;
             GL.ClearColor(Color.FromArgb(150,150,150));
-            camera = new Camera(new Vector3(70.0f, 70.0f, 70.0f));
+            camera = new Camera(new Vector3(110.0f));
             GL.Enable(EnableCap.DepthTest);
             float aspect = glControl1.AspectRatio;
             Matrix4 p = Matrix4.CreatePerspectiveFieldOfView((float)(camera.Zoom * Math.PI / 180), aspect, 1, 1000);
@@ -313,6 +313,7 @@ namespace Program
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (valuesT == null) return;
             animationTimer.Stop();
             t = 0;
             currTrack.Text = t.ToString();
@@ -358,6 +359,11 @@ namespace Program
         {
             if (histX is null) return;
             ((DatVis3D.BarPlot)plot).DrawLegend(e.Graphics, legendPanel.Width, legendPanel.Height, histX);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            animationTimer.Interval = Convert.ToInt32(numericUpDown1.Value);
         }
         #endregion
 

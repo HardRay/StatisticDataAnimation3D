@@ -31,6 +31,7 @@ namespace Program
                     control.ForeColor = Color.FromArgb(Math.Abs(255 - MainColor.R), Math.Abs(255 - MainColor.G), Math.Abs(255 - MainColor.B));
                 if (control is Button || control is RadioButton)
                 {
+                    if (control.BackColor == Color.Transparent) continue;
                     control.ForeColor = MainColor;
                     control.BackColor = Color.FromArgb(Math.Abs(255 - MainColor.R), Math.Abs(255 - MainColor.G), Math.Abs(255 - MainColor.B));
                 }

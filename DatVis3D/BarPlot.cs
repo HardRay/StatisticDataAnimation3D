@@ -29,7 +29,7 @@ namespace DatVis3D
         }
 
         public float ThicknessX { get; set; } = 10f;
-        public float ThicknessY { get; set; } = 15f;
+        public float ThicknessY { get; set; } = 10f;
 
         public override void Draw(float t)
         {
